@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação Geral - Docentes com Critérios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .apexcharts-tooltip {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            color: #1A202C;
+        }
+        .apexcharts-tooltip-title {
+            background: #F9FAFB !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            font-weight: 600;
+        }
+         .tooltip-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 4px 16px;
+            font-size: 12px;
+        }
+        .tooltip-label {
+            font-weight: 600;
+            color: #6B7280;
+        }
+        .tooltip-value {
+            font-weight: 500;
+            text-align: right;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-7xl bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+        <div class="text-center mb-6">
+            <div class="flex justify-center mb-4">
+                <img src="https://i.postimg.cc/x1pYp13c/det-fieg.png" alt="Logomarca FIEG" class="h-16">
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Análise de Desempenho de Docentes</h1>
+            <p class="text-gray-600 mt-2">Classificação Top 10 com aplicação de critérios de paridade e limite por unidade.</p>
+        </div>
+        <div id="chart-container">
+            <div id="chart"></div>
+        </div>
+        <div class="flex flex-wrap justify-center items-center space-x-4 mt-6 text-sm text-gray-600">
+            <div class="flex items-center m-1"><span class="h-3 w-3 rounded-full bg-green-500 mr-2"></span>TOP 10 (SESI)</div>
+            <div class="flex items-center m-1"><span class="h-3 w-3 rounded-full bg-blue-500 mr-2"></span>TOP 10 (SENAI)</div>
+            <div class="flex items-center m-1"><span class="h-3 w-3 rounded-full bg-gray-500 mr-2"></span>Desclassificado</div>
+        </div>
+
+        <!-- Seção de Critérios de Avaliação -->
+        <div class="mt-12 pt-8 border-t border-gray-200">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-900 text-center mb-6">Critérios de Avaliação</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N1: Formação UNINDÚSTRIA</h3>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">10 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Cursos da plataforma Unindústria. Cursos específicos valem 1 ponto cada. Outros cursos (≥ 20h) também são aceitos.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N2: Formação Externa</h3>
+                         <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">10 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Certificados de cursos (≥ 40h) em outras instituições, relacionados à área da Educação. Válidos de 01/01/2023 a 30/09/2025.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N3: Formação Acadêmica</h3>
+                         <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">10 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">5 pontos por Pós-graduação (Lato ou Stricto Sensu) na área de atuação. Stricto Sensu vale de qualquer período.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N4: Premiações</h3>
+                         <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">10 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">5 pontos por premiação em concursos educacionais (SESI/SENAI ou outros). Válidos de 01/01/2023 a 30/09/2025.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N5: Participação em Concursos</h3>
+                         <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">5 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">0,5 ponto por participação comprovada em concursos educacionais. Válidos de 01/01/2023 a 30/09/2025.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N6: Indicadores de Qualidade</h3>
+                         <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">20 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Pontuação única se a unidade atingir as metas: SENAI (IDAP ≥ 8.0 ou CI ≥ 4.0) e SESI (iSESI ≥ 6.0).</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N7: Avaliação de Satisfação</h3>
+                         <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">15 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">Pontuação única por resultado individual (SENAI) ou da escola (SESI) ≥ 90% na Avaliação de Reação ou CPA.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800">N8: Ações "Encantar para Avançar"</h3>
+                         <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">2.5 Pts</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">0,5 ponto por atividade que conecta alunos à indústria (visitas, palestras, etc.), com limite de 2,5 pontos.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fullJsonData = {
+          "records": [
+            { "Ranking": 1, "Docente": "RENATA KELLY DE OLIVEIRA 8031", "Entidade": "SESI", "Unidade": "JAIARA - SESI", "Tempo de Casa": 4.5, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 10, "Pontuação\nN4": 10, "Pontuação\nN5": 4, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2.5, "Total Geral": 66.5 },
+            { "Ranking": 2, "Docente": "JULIO CESAR GAUDENCIO DE OLIVEIRA 6482", "Entidade": "SESI", "Unidade": "JAIARA - SESI", "Tempo de Casa": 7.7, "Pontuação\nN1": 9, "Pontuação\nN2": 10, "Pontuação\nN3": 10, "Pontuação\nN4": 10, "Pontuação\nN5": 4, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2, "Total Geral": 65 },
+            { "Ranking": 3, "Docente": "MARIA ZELIA DA SILVA MARIANO", "Entidade": "SENAI", "Unidade": "FATESG - SENAI", "Tempo de Casa": 13.3, "Pontuação\nN1": 10, "Pontuação\nN2": 7, "Pontuação\nN3": 10, "Pontuação\nN4": 0, "Pontuação\nN5": 0.5, "Pontuação\nN6": 20, "Pontuação\nN7": 15, "Pontuação\nN8": 0.5, "Total Geral": 63 },
+            { "Ranking": 4, "Docente": "VERANA GARCIA DE ARAUJO 2393", "Entidade": "SENAI", "Unidade": "FATESG - SENAI", "Tempo de Casa": 36.9, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 5, "Pontuação\nN4": 0, "Pontuação\nN5": 0.5, "Pontuação\nN6": 20, "Pontuação\nN7": 15, "Pontuação\nN8": 1.5, "Total Geral": 62 },
+            { "Ranking": 5, "Docente": "ANA RAQUEL BARBOSA PATRIOTA", "Entidade": "SESI", "Unidade": "JD. COLORADO - SESI SENAI", "Tempo de Casa": 3.7, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 10, "Pontuação\nN4": 5, "Pontuação\nN5": 5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2, "Total Geral": 62 },
+            { "Ranking": 6, "Docente": "SARA PEREIRA SILVA 4561", "Entidade": "SENAI", "Unidade": "ITUMBIARA - SENAI", "Tempo de Casa": 2.3, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 10, "Pontuação\nN4": 10, "Pontuação\nN5": 0.5, "Pontuação\nN6": 0, "Pontuação\nN7": 15, "Pontuação\nN8": 2, "Total Geral": 57.5 },
+            { "Ranking": 7, "Docente": "LUDMILLA LETICIA CORREIA ALVES 9376", "Entidade": "SESI", "Unidade": "JAIARA - SESI", "Tempo de Casa": 2.7, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 0, "Pontuação\nN4": 10, "Pontuação\nN5": 4.5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2.5, "Total Geral": 57 },
+            { "Ranking": 8, "Docente": "SILVIA LUDMILLA DE SOUZA ALVES ARAUJO 9352", "Entidade": "SESI", "Unidade": "JAIARA - SESI", "Tempo de Casa": 2.7, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 0, "Pontuação\nN4": 10, "Pontuação\nN5": 3.5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2.5, "Total Geral": 56 },
+            { "Ranking": 9, "Docente": "NATHALIA MARTINS 8065", "Entidade": "SESI", "Unidade": "PLANALTO - SESI", "Tempo de Casa": 4.4, "Pontuação\nN1": 7, "Pontuação\nN2": 7, "Pontuação\nN3": 10, "Pontuação\nN4": 5, "Pontuação\nN5": 0.5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2.5, "Total Geral": 52 },
+            { "Ranking": 10, "Docente": "MARCIO CARMONA COSTA", "Entidade": "SENAI", "Unidade": "ITUMBIARA - SENAI", "Tempo de Casa": 2.8, "Pontuação\nN1": 9, "Pontuação\nN2": 10, "Pontuação\nN3": 10, "Pontuação\nN4": 5, "Pontuação\nN5": 0.5, "Pontuação\nN6": 0, "Pontuação\nN7": 15, "Pontuação\nN8": 2, "Total Geral": 51.5 },
+            { "Ranking": 11, "Docente": "IVONE BORGES SOUZA 3379", "Entidade": "SENAI", "Unidade": "FATESG - SENAI", "Tempo de Casa": 7.5, "Pontuação\nN1": 1, "Pontuação\nN2": 1, "Pontuação\nN3": 5, "Pontuação\nN4": 5, "Pontuação\nN5": 0, "Pontuação\nN6": 20, "Pontuação\nN7": 15, "Pontuação\nN8": 2.5, "Total Geral": 49.5 },
+            { "Ranking": 12, "Docente": "OZIEL ROSA LEITE MILHOMEM 5961", "Entidade": "SESI", "Unidade": "CRIXÁS - SESI", "Tempo de Casa": 11.0, "Pontuação\nN1": 5, "Pontuação\nN2": 2, "Pontuação\nN3": 10, "Pontuação\nN4": 10, "Pontuação\nN5": 0.5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2, "Total Geral": 49.5 },
+            { "Ranking": 13, "Docente": "JOSE LUCIANO CALIMAN 2899", "Entidade": "SENAI", "Unidade": "CELSO CHARURI - SESI SENAI", "Tempo de Casa": 11.4, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 10, "Pontuação\nN4": 0, "Pontuação\nN5": 0.5, "Pontuação\nN6": 0, "Pontuação\nN7": 15, "Pontuação\nN8": 2.5, "Total Geral": 48 },
+            { "Ranking": 14, "Docente": "ALAN KARDEC AMARAL LOPES 9340", "Entidade": "SESI", "Unidade": "PLANALTO - SESI", "Tempo de Casa": 2.7, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 10, "Pontuação\nN4": 10, "Pontuação\nN5": 5, "Pontuação\nN6": 0, "Pontuação\nN7": 0, "Pontuação\nN8": 2.5, "Total Geral": 47.5 },
+            { "Ranking": 15, "Docente": "KAREN HAYRON RESENDE DAMASCENO 4639", "Entidade": "SENAI", "Unidade": "ITUMBIARA - SENAI", "Tempo de Casa": 2.1, "Pontuação\nN1": 10, "Pontuação\nN2": 10, "Pontuação\nN3": 5, "Pontuação\nN4": 0, "Pontuação\nN5": 5, "Pontuação\nN6": 0, "Pontuação\nN7": 15, "Pontuação\nN8": 2, "Total Geral": 47 },
+            { "Ranking": 16, "Docente": "ERICA SOARES TAVARES", "Entidade": "SESI", "Unidade": "CRIXÁS - SESI", "Tempo de Casa": 11.5, "Pontuação\nN1": 2, "Pontuação\nN2": 3, "Pontuação\nN3": 10, "Pontuação\nN4": 10, "Pontuação\nN5": 1.5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 0.5, "Total Geral": 47 },
+            { "Ranking": 17, "Docente": "JEAN CARLOS LEAL DA SILVA JUNIOR 9496", "Entidade": "SESI", "Unidade": "VILA CANAÃ - SESI", "Tempo de Casa": 2.6, "Pontuação\nN1": 6, "Pontuação\nN2": 3, "Pontuação\nN3": 10, "Pontuação\nN4": 5, "Pontuação\nN5": 0.5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 2.5, "Total Geral": 47 },
+            { "Ranking": 18, "Docente": "GEORDE DE MOURA GOMES 4763", "Entidade": "SESI", "Unidade": "UNIDIGITAL", "Tempo de Casa": 14.4, "Pontuação\nN1": 7, "Pontuação\nN2": 4, "Pontuação\nN3": 10, "Pontuação\nN4": 5, "Pontuação\nN5": 0.5, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 0.5, "Total Geral": 47 },
+            { "Ranking": 19, "Docente": "ELIZETE TAVARES DE MELO MARIANO", "Entidade": "SESI", "Unidade": "VILA CANAÃ - SESI", "Tempo de Casa": 3.4, "Pontuação\nN1": 10, "Pontuação\nN2": 5, "Pontuação\nN3": 10, "Pontuação\nN4": 0, "Pontuação\nN5": 0, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 1.5, "Total Geral": 46.5 },
+            { "Ranking": 20, "Docente": "KARINE SILVA DE BARROS 9531", "Entidade": "SESI", "Unidade": "CRIXÁS - SESI", "Tempo de Casa": 2.6, "Pontuação\nN1": 3, "Pontuação\nN2": 10, "Pontuação\nN3": 5, "Pontuação\nN4": 5, "Pontuação\nN5": 3, "Pontuação\nN6": 20, "Pontuação\nN7": 0, "Pontuação\nN8": 0.5, "Total Geral": 46.5 }
+          ]
+        };
+        
+        const scoreLabels = {
+            'Pontuação\nN1': 'Form. Continuada - UNINDÚSTRIA',
+            'Pontuação\nN2': 'Form. Continuada - Outras',
+            'Pontuação\nN3': 'Formação Acadêmica',
+            'Pontuação\nN4': 'Premiações em Concursos',
+            'Pontuação\nN5': 'Participação em Concursos',
+            'Pontuação\nN6': 'IDAP/iSESI',
+            'Pontuação\nN7': 'Avaliação Satisfação / NPS',
+            'Pontuação\nN8': 'Ações Encantar para Avançar',
+        };
+
+        // Lógica de reclassificação
+        const allData = fullJsonData.records.sort((a, b) => a.Ranking - b.Ranking);
+        const finalTop10List = [];
+        const unitCounter = {};
+        let sesiCounter = 0;
+        let senaiCounter = 0;
+        
+        for (const teacher of allData) {
+            if (finalTop10List.length >= 10) break;
+
+            const unit = teacher.Unidade;
+            const entity = teacher.Entidade.trim();
+
+            const isUnitLimitReached = (unitCounter[unit] || 0) >= 2;
+            const isSesiLimitReached = entity === 'SESI' && sesiCounter >= 5;
+            const isSenaiLimitReached = entity === 'SENAI' && senaiCounter >= 5;
+
+            if (!isUnitLimitReached && !isSesiLimitReached && !isSenaiLimitReached) {
+                finalTop10List.push(teacher);
+                unitCounter[unit] = (unitCounter[unit] || 0) + 1;
+                if (entity === 'SESI') sesiCounter++;
+                else senaiCounter++;
+            }
+        }
+
+        const finalTop10Rankings = new Set(finalTop10List.map(t => t.Ranking));
+        const originalTop20Rankings = new Set(allData.slice(0, 20).map(d => d.Ranking));
+
+        const chartData = allData
+            .filter(teacher => originalTop20Rankings.has(teacher.Ranking) || finalTop10Rankings.has(teacher.Ranking))
+            .map(teacher => {
+                const isTop10 = finalTop10Rankings.has(teacher.Ranking);
+                let status = 'Não Classificado';
+                let reason = '';
+
+                if (isTop10) {
+                    status = 'TOP 10';
+                    reason = 'Classificado nos critérios.';
+                } else {
+                    status = 'Desclassificado';
+                    let reasons = [];
+                    // Simular contagem para encontrar o motivo da desclassificação
+                    const tempUnitCounter = {};
+                    let tempSesiCounter = 0;
+                    let tempSenaiCounter = 0;
+                    for (const t of finalTop10List) {
+                        if (t.Ranking < teacher.Ranking) {
+                           tempUnitCounter[t.Unidade] = (tempUnitCounter[t.Unidade] || 0) + 1;
+                           if(t.Entidade.trim() === 'SESI') tempSesiCounter++;
+                           else tempSenaiCounter++;
+                        }
+                    }
+                    if ((tempUnitCounter[teacher.Unidade] || 0) >= 2) reasons.push('Limite por Unidade');
+                    if (teacher.Entidade.trim() === 'SESI' && tempSesiCounter >= 5) reasons.push('Limite de vagas SESI');
+                    if (teacher.Entidade.trim() === 'SENAI' && tempSenaiCounter >= 5) reasons.push('Limite de vagas SENAI');
+                    if (reasons.length === 0) reasons.push('Pontuação insuficiente');
+                    reason = reasons.join(' / ');
+                }
+                return { ...teacher, status, reason };
+            })
+            .sort((a,b) => a.Ranking - b.Ranking);
+
+
+        const seriesData = chartData.map(d => d['Total Geral']);
+        const categoriesData = chartData.map(d => `[${d.status}] ${d.Ranking}º - ${d.Docente}`);
+        
+        const colors = chartData.map(item => {
+            if (item.status === 'TOP 10') {
+                return item.Entidade.trim() === 'SESI' ? '#48BB78' : '#4299E1';
+            }
+            return '#A0AEC0'; // Cinza para desclassificado
+        });
+
+        const options = {
+            series: [{
+                name: 'Pontuação Geral',
+                data: seriesData
+            }],
+            chart: {
+                type: 'bar',
+                height: 800,
+                toolbar: { show: false },
+                foreColor: '#374151'
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    borderRadius: 6,
+                    dataLabels: { position: 'top' },
+                    distributed: true
+                }
+            },
+            colors: colors,
+            legend: { show: false },
+            dataLabels: {
+                enabled: true,
+                offsetX: 30,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#374151']
+                },
+                formatter: val => val.toFixed(1)
+            },
+            xaxis: {
+                categories: categoriesData,
+                title: {
+                    text: 'Pontuação Geral',
+                    style: { fontSize: '14px', fontWeight: 600 }
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        fontSize: '11px' 
+                    }
+                }
+            },
+            grid: {
+                borderColor: '#E5E7EB',
+                xaxis: { lines: { show: true } },
+                yaxis: { lines: { show: false } },
+                padding: {
+                    left: 280 
+                }
+            },
+            tooltip: {
+                theme: 'light',
+                custom: function({ series, seriesIndex, dataPointIndex, w }) {
+                    const data = chartData[dataPointIndex];
+                     let statusColor = 'text-gray-500';
+                     if (data.status === 'TOP 10') statusColor = 'text-green-600';
+                     if (data.status === 'Desclassificado') statusColor = 'text-yellow-600';
+
+                    let tooltipHtml = `
+                        <div class="p-2">
+                            <div class="font-bold mb-2">${data.Docente}</div>
+                             <div class="tooltip-grid mb-2 pb-2 border-b border-gray-200">
+                                <div class="tooltip-label">Status:</div>
+                                <div class="tooltip-value ${statusColor}">${data.status}</div>
+                                ${data.status === 'Desclassificado' ? `
+                                <div class="tooltip-label">Motivo:</div>
+                                <div class="tooltip-value">${data.reason}</div>
+                                ` : ''}
+                                <div class="tooltip-label">Entidade:</div>
+                                <div class="tooltip-value">${data.Entidade}</div>
+                                <div class="tooltip-label">Unidade:</div>
+                                <div class="tooltip-value">${data.Unidade}</div>
+                                <div class="tooltip-label">Tempo de Casa:</div>
+                                <div class="tooltip-value">${data['Tempo de Casa'].toFixed(1)} anos</div>
+                            </div>
+                            <div class="tooltip-grid pt-2">
+                    `;
+                    Object.keys(scoreLabels).forEach(key => {
+                        tooltipHtml += `
+                            <div class="tooltip-label">${scoreLabels[key]}:</div>
+                            <div class="tooltip-value">${data[key] || 0}</div>
+                        `;
+                    });
+                    tooltipHtml += `
+                            <div class="tooltip-label border-t border-gray-200 pt-1 mt-1">Total Geral:</div>
+                            <div class="tooltip-value font-bold border-t border-gray-200 pt-1 mt-1">${data['Total Geral']}</div>
+                        </div></div>
+                    `;
+                    return tooltipHtml;
+                }
+            },
+            noData: { text: 'Carregando dados...' },
+        };
+
+        const chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+</body>
+</html>
+
